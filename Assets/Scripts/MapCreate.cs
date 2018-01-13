@@ -25,10 +25,10 @@ public class MapCreate : MonoBehaviour {
         Map_reset();
 
 
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 6; i++)
         {
             Cellular_Automata();
-        }//5회 실행
+        }//6회 실행
 
         float width = 1f, height = 1f; //블럭의 가로 세로
         Vector3 loc = new Vector3(0, 0, 0); //처음 좌표 초기화

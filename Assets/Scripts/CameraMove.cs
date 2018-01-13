@@ -42,14 +42,14 @@ public class CameraMove : MonoBehaviour {
     //카메라 이동 제한 함수
     private void CameraClamp()
     {
-        if (transform.position.x > clampVector.maxClampX)
-            transform.position = new Vector3(clampVector.maxClampX, transform.position.y, transform.position.z);
+        if (transform.position.x >= clampVector.maxClampX)
+            transform.position = Vector3.Lerp(transform.position, new Vector3(clampVector.maxClampX, transform.position.y, transform.position.z), GameManager.instance.cameraSensivity);
         else if (transform.position.x < clampVector.minClampX)
-            transform.position = new Vector3(clampVector.minClampX, transform.position.y, transform.position.z);
+            transform.position = Vector3.Lerp(transform.position, new Vector3(clampVector.minClampX, transform.position.y, transform.position.z), GameManager.instance.cameraSensivity);
 
-        if (transform.position.z > clampVector.maxClampZ)
-            transform.position = new Vector3(transform.position.x, transform.position.y, clampVector.maxClampZ);
-        else if(transform.position.z < clampVector.minClampZ)
-            transform.position = new Vector3(transform.position.x, transform.position.y, clampVector.minClampZ);
+        if (transform.position.z >= clampVector.maxClampZ)
+            transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, transform.position.y, clampVector.maxClampZ), GameManager.instance.cameraSensivity);
+        else if(transform.position.z <= clampVector.minClampZ)
+            transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, transform.position.y, clampVector.minClampZ), GameManager.instance.cameraSensivity);
     }
 }

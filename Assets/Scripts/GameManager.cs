@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class GameManager : SingleTon<GameManager> {
 
-    [Range(0.01f, 1.0f)] [ExecuteInEditMode]
-    public float cameraSensivity;
+    [Range(0.01f, 1.0f)]
+    public float cameraSensivity = 1.6f;
 
     //Material FadeIn/Out
 	public IEnumerator MaterialFadeIn(Material material)
