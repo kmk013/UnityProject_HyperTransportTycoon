@@ -167,8 +167,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f91c182c00f4e3438ae7558e8b2e92b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  island: {fileID: 1077195489465592, guid: fbb00865b08f4e548a4410449ec02153, type: 2}
-  sea: {fileID: 1550674372399732, guid: 4b4af016259c4994587086579e09e544, type: 2}
+  ground: {fileID: 1088484956316288, guid: 904510ea7b1a0054a874788a51c3bdd6, type: 2}
+  water: {fileID: 1836360802079324, guid: beb4f3770abe31542922d008a5ea381f, type: 2}
   floorParent: {fileID: 1082860735}
 --- !u!1 &257667520
 GameObject:

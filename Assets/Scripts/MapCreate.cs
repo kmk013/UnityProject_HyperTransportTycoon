@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MapCreate : MonoBehaviour {
 
-    public GameObject island, sea;
+    public GameObject ground, water;
     [Space(10)]
     public GameObject floorParent;
 
@@ -44,12 +44,12 @@ public class MapCreate : MonoBehaviour {
 
                 if(arr[i,j] == 1)
                 {
-                    GameObject newTile = Instantiate(sea, loc, Quaternion.identity);
+                    GameObject newTile = Instantiate(water, loc, Quaternion.identity);
                     newTile.transform.parent = floorParent.transform;
                 }
                 else if (arr[i, j] == 0)
                 {
-                    GameObject newTile = Instantiate(island, loc, Quaternion.identity);
+                    GameObject newTile = Instantiate(ground, loc, Quaternion.identity);
                     newTile.transform.parent = floorParent.transform;
                 }
 
