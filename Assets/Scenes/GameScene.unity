@@ -372,10 +372,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clampVector:
-    minClampX: -3
-    maxClampX: 30
-    minClampZ: -3
-    maxClampZ: 30
+    minClampValue: -3
+    maxClampValue: 30
 --- !u!4 &2147402958
 Transform:
   m_ObjectHideFlags: 0
