@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CameraMove : MonoBehaviour {
 
+    //카메라 이동 제한 값
     [System.Serializable]
     public struct ClampVector
     {
@@ -22,19 +23,23 @@ public class CameraMove : MonoBehaviour {
     //마우스 입력 받아 좌표 이동 함수
     private void InputTouch()
     {
-        if (Input.GetMouseButton(0))
+        if (!GameManager.instance.isEditMode)
         {
-            if (Input.GetAxis("Mouse X") < 0)
-                transform.position += transform.right * GameManager.instance.cameraSensivity;
-            else if (Input.GetAxis("Mouse X") > 0)
-                transform.position -= transform.right * GameManager.instance.cameraSensivity;
+            if (Input.GetMouseButton(0))
+            {
+                if (Input.GetAxis("Mouse X") < 0)
+                    transform.position += transform.right * GameManager.instance.cameraSensivity;
+                else if (Input.GetAxis("Mouse X") > 0)
+                    transform.position -= transform.right * GameManager.instance.cameraSensivity;
 
-            if (Input.GetAxis("Mouse Y") < 0)
-                transform.position += transform.forward * GameManager.instance.cameraSensivity;
-            else if (Input.GetAxis("Mouse Y") > 0)
-                transform.position -= transform.forward * GameManager.instance.cameraSensivity;
+                if (Input.GetAxis("Mouse Y") < 0)
+                    transform.position += transform.forward * GameManager.instance.cameraSensivity;
+                else if (Input.GetAxis("Mouse Y") > 0)
+                    transform.position -= transform.forward * GameManager.instance.cameraSensivity;
+            }
         }
     }
+
     //카메라 이동 제한 함수
     private void CameraClamp()
     {
