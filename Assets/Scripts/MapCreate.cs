@@ -6,24 +6,34 @@ public class MapCreate : MonoBehaviour {
 
     public GameObject ground, water;
     [Space(10)]
-    public GameObject floorParent;
+    public GameObject farm;
+    public GameObject factory;
+    public GameObject city;
+    public GameObject oilwell;
 
-    const int X = 32, Y = 32;
-    int[,] arr = new int[X, Y];
+    private GameObject floorParent;
+    private const int X = 32, Y = 32;
+    private int[,] arr = new int[X, Y];
+
+    private List<GameObject> groundList = new List<GameObject>();
+    private List<GameObject> waterList = new List<GameObject>();
+    private int groundNum = 0;
+    private int waterNum = 0;
 
     //========================================================================================================================
 
-    private void Awake()
+    private void Start()
     {
-        StartCoroutine(CreateWould());
+        floorParent = GameObject.Find("Floor");
+        CreateWould();
+        CreateBuilding();
     }
 
     //========================================================================================================================
 
-    IEnumerator CreateWould()
+    private void CreateWould()
     {
         Map_reset();
-
 
         for (int i = 0; i < 6; i++)
         {
@@ -36,37 +46,40 @@ public class MapCreate : MonoBehaviour {
         for(int i = 0; i < X; i++)
         {
             loc.x += width;
-
             loc.z = 0f;
+
             for(int j = 0; j < Y; j++)
             {
                 loc.z += height;
 
                 if(arr[i,j] == 1)
                 {
-                    GameObject newTile = Instantiate(water, loc, Quaternion.identity);
-                    newTile.transform.parent = floorParent.transform;
+                    waterList.Add(Instantiate(water, loc, Quaternion.identity));
+                    waterList[waterNum].transform.parent = floorParent.transform;
+                    waterList[waterNum].name = "바다: " + i.ToString() + "," + j.ToString();
+                    waterNum++;
                 }
                 else if (arr[i, j] == 0)
                 {
-                    GameObject newTile = Instantiate(ground, loc, Quaternion.identity);
-                    newTile.transform.parent = floorParent.transform;
+                    groundList.Add(Instantiate(ground, loc, Quaternion.identity));
+                    groundList[groundNum].transform.parent = floorParent.transform;
+                    groundList[groundNum].name = "육지: " + i.ToString() + "," + j.ToString();
+                    groundNum++;
                 }
-
-                yield return new WaitForSeconds(0.01f);
             }
         }
     }
 
     //========================================================================================================================
 
-    void Map_reset()
+    private void Map_reset()
     {
+        int WATER_SIZE = 4;
         for (int i = 0; i < X; i++)
         {
             for (int j = 0; j < Y; j++)
             {
-                if (i == 0 || j == 0 || i == X - 1 || j == Y - 1)
+                if (i < WATER_SIZE || j < WATER_SIZE || i > X - WATER_SIZE-1 || j > Y - WATER_SIZE-1)
                 {
                     arr[i, j] = 1; continue;
                 }
@@ -78,10 +91,10 @@ public class MapCreate : MonoBehaviour {
             }
         }//첫 생성 초기화 반복문
     }
-    
+
     //========================================================================================================================
 
-    void Cellular_Automata()
+    private void Cellular_Automata()
     {
         for (int i = 0; i < X; i++)
         {
@@ -105,4 +118,34 @@ public class MapCreate : MonoBehaviour {
     }
 
     //========================================================================================================================
+
+    private void CreateBuilding()
+    {
+        BuildingSetting(farm, 6, "Ground");
+        BuildingSetting(factory, 6, "Ground");
+        BuildingSetting(city, 8, "Ground");
+        BuildingSetting(oilwell, 4, "Water");
+    }
+
+    private void BuildingSetting(GameObject a, int buildCount, string tag)
+    {
+        for(int cnt = 0; cnt < buildCount; cnt++)
+        {
+            GameObject building = Instantiate(a);
+            if(tag.Contains("Ground"))
+            {
+                int num = Random.Range(0, groundList.Count);
+                building.transform.parent = groundList[num].transform;
+                groundList.RemoveAt(num);
+            } else
+            {
+                int num = Random.Range(0, waterList.Count);
+                building.transform.parent = waterList[num].transform;
+                waterList.RemoveAt(num);
+            }
+            building.transform.localPosition = Vector3.zero;
+        }
+    }
+    
+
 }

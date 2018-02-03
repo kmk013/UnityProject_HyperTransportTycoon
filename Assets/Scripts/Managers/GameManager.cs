@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class GameManager : SingleTon<GameManager> {
 
-    [Range(0.01f, 1.0f)]
+    [Range(0.01f, 10.0f)]
     public float cameraSensivity = 1.6f;
     public bool isEditMode = false;
 
